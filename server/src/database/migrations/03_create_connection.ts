@@ -11,8 +11,8 @@ import Knex from 'knex';
     .onUpdate('CASCADE')
     .onDelete('CASCADE');
 
-    table.timestamp('created_at')
-      .defaultTo('now()')
+      table.timestamp('created_at')
+      .defaultTo(knex.raw('CURRENT_TIMESTAMP'))
       .notNullable();
     });
     }
