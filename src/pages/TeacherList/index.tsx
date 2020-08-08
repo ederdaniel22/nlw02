@@ -40,8 +40,6 @@ function TeacherList(){
             {value: '4', label: 'Quinta-feira'},
             {value: '5', label: 'Sexta-feira'},
             {value: '6', label: 'Sábado'},
-            
-           
           ]}
           />
         <Input type="time" name="time" label="Hora"/>
