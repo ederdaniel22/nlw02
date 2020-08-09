@@ -1,32 +1,55 @@
 import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
+import api from '../../services/api';
 
 import './styles.css';
 
-function TeacherItem(){
+export interface Teacher{
+    id: number;
+    avatar:string;
+    bio: string;
+    cost: number;
+    name: string;
+    subject: string;
+    whatsapp:string;
+  
+}
+
+interface TeacherItemProps{
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  function createNewConnection(){
+    api.post('connections', {
+      user_id: teacher.id,
+    })
+  }
+
   return(
   <article className="teacher-item">
 <header>
-  <img src="https://avatars1.githubusercontent.com/u/60990935?s=460&u=6eac8c5d69de73a638cad6d0dab0889cb32f4283&v=4" alt="Eder Daniel Domingues"/>
+  <img src={teacher.avatar} alt={teacher.name}/>
   <div>
-    <strong>Eder Daniel Domingues</strong>
+  <strong>{teacher.name}</strong>
     
-    <span>Incentivos</span>
+    <span>{teacher.subject}</span>
   </div>
 </header>
-<p>
-  <br/> <br/>
-  Perseverança é meu estilo de vida.<br/><br/>Nunca desisto de atingir meus objetivos, por mais dificeis que sejam, acreditando <br/>sempre que em Deus eu posso tudo, luto com todas as minhas forças e busco <br/>ajudar o máximo de pessoas a encontrar o caminho do conhecimento, neste momento estudo programação de computadores, contra todos os que dizem <br/>que pela minha idade eu não teria chances de aprender e mesmo que aprendesse não teria chances no mercado de trabalho, não me importo, se Deus me deu<br/> inteligência para estudar e aprender, com certeza, está preparando um ótimo futuro para mim no mundo da programação.
-</p>
+<p> {teacher.bio}</p>
+
 <footer>
   <p>
     Preço / hora
-    <strong> R$ 80,00</strong>
+    <strong> R$ {teacher.cost}</strong>
   </p>
-  <button type="button">
+  <a  
+  target="_blank" 
+  onClick={createNewConnection} 
+  href={`https://wa.me/${teacher.whatsapp}`}>
     <img src={whatsappIcon} alt="Whatsapp" />
     Entrar em contato
-  </button>
+  </a>
 </footer>
 </article>
   )
